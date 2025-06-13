@@ -84,7 +84,8 @@ export default function LoginForm() {
 
           <div className="mt-4 flex justify-center">
             <Link className="text-sm text-center" href="/sign-up">
-              Don't have an account?{" "}
+              Don&rsquo;t have an account?
+              {" "}
               <span className="text-blue-600 underline cursor-pointer">
                 Sign up here
               </span>
