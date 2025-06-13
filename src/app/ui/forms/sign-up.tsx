@@ -11,7 +11,7 @@ export default function SignUpForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <div className="relative flex justify-center items-center min-h-screen w-full">
+    <div className="relative flex justify-center items-center min-h-screen w-full bg-transparent">
       {/* Background Image for small screens */}
       <div className="absolute top-0 left-0 right-0 bottom-0 h-full w-full md:hidden -z-10">
         <Image
@@ -31,7 +31,7 @@ export default function SignUpForm() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="w-96 h-fit bg-white bg-opacity-90 border border-gray-200 z-10 p-8 rounded-xl"
         >
-          <h1 className="text-2xl font-bold mb-4">Sign Up to <span className="text-green-400 underline">Roofsy</span></h1>
+          <h1 className="text-2xl font-bold mb-4">Sign Up to <span className="text-green-500 underline">Roofsy.</span></h1>
           <div className="space-y-4">
             <div className="flex flex-col w-full mt-10">
               <label htmlFor="name">Name</label>
@@ -40,7 +40,7 @@ export default function SignUpForm() {
                 type="text"
                 name="name"
                 placeholder="Enter your name"
-                className="mt-1 border border-gray-200 h-11 rounded-xl p-2 w-full"
+                className="mt-1 border text-sm border-gray-200 h-11 rounded-xl p-2 w-full"
                 required
               />
             </div>
@@ -51,7 +51,7 @@ export default function SignUpForm() {
                 type="email"
                 name="email"
                 placeholder="Enter your email"
-                className="mt-1 border border-gray-200 h-11 rounded-xl p-2 w-full"
+                className="mt-1 border text-sm border-gray-200 h-11 rounded-xl p-2 w-full"
                 required
               />
             </div>
@@ -63,7 +63,7 @@ export default function SignUpForm() {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="••••••"
-                  className="mt-1 border border-gray-200 h-11 rounded-xl p-2 w-full pr-10 "
+                  className="mt-1 border text-sm border-gray-200 h-11 rounded-xl p-2 w-full pr-10 "
                   required
                 />
                 <Button
@@ -88,7 +88,7 @@ export default function SignUpForm() {
                   type={showConfirmPassword ? "text" : "password"}
                   name="confirmPassword"
                   placeholder="••••••"
-                  className="mt-1 border h-11 border-gray-200 rounded-xl p-2 w-full pr-10"
+                  className="mt-1 border text-sm h-11 border-gray-200 rounded-xl p-2 w-full pr-10"
                   required
                 />
                 <Button
@@ -110,7 +110,7 @@ export default function SignUpForm() {
           <div className="mt-4 flex justify-center">
             <Link className="text-sm text-center" href="/login">
               Already have an account?{" "}
-              <span className="text-blue-600 underline cursor-pointer">
+              <span className="text-green-500 font-bold underline cursor-pointer">
                 Login here
               </span>
             </Link>

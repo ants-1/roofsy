@@ -10,7 +10,7 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="relative flex justify-center items-center min-h-screen w-full">
+    <div className="relative flex justify-center items-center min-h-screen w-full bg-transparent">
       {/* Background Image for small screens */}
       <div className="absolute top-0 left-0 right-0 bottom-0 h-full w-full md:hidden -z-10">
         <Image
@@ -18,7 +18,6 @@ export default function LoginForm() {
           alt="Picture of a house"
           fill
           className="object-cover"
-          priority
         />
       </div>
 
@@ -30,7 +29,7 @@ export default function LoginForm() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="w-96 h-fit bg-white bg-opacity-90 border border-gray-200 z-10 p-8 rounded-xl"
         >
-          <h1 className="text-2xl font-bold mb-4">Login to <span className="text-green-400 underline">Roofsy</span></h1>
+          <h1 className="text-2xl font-bold mb-4">Login to <span className="text-green-500 underline">Roofsy.</span></h1>
           <div className="space-y-4">
             <div className="flex flex-col w-full mt-10">
               <label htmlFor="email">Email</label>
@@ -39,7 +38,7 @@ export default function LoginForm() {
                 type="email"
                 name="email"
                 placeholder="Enter your email"
-                className="mt-1 border border-gray-200 h-11 rounded-xl p-2 w-full"
+                className="mt-1 text-sm border border-gray-200 h-11 rounded-xl p-2 w-full"
                 required
               />
             </div>
@@ -51,7 +50,7 @@ export default function LoginForm() {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="••••••"
-                  className="mt-1 border border-gray-200 h-11 rounded-xl p-2 w-full pr-10 "
+                  className="mt-1 border text-sm border-gray-200 h-11 rounded-xl p-2 w-full pr-10 "
                   required
                 />
                 <Button
@@ -77,7 +76,7 @@ export default function LoginForm() {
             </span>
           </div>
 
-          <Button className="w-full justify-center bg-green-100!">
+          <Button className="w-full justify-center bg-green-100! hover:bg-green-300!">
             <Image src="/google-icon.png" width={20} height={20} alt="Google icon" className="mr-1" />
             Sign in with Google
           </Button>
@@ -86,7 +85,7 @@ export default function LoginForm() {
             <Link className="text-sm text-center" href="/sign-up">
               Don&rsquo;t have an account?
               {" "}
-              <span className="text-blue-600 underline cursor-pointer">
+              <span className="text-green-500 font-bold underline cursor-pointer">
                 Sign up here
               </span>
             </Link>
@@ -102,7 +101,6 @@ export default function LoginForm() {
           alt="Picture of a house"
           fill
           className="object-cover"
-          priority
         />
       </div>
     </div>
