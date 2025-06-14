@@ -4,13 +4,23 @@ import Footer from "./ui/footer";
 import SearchBar from "./ui/search";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
+import Image from "next/image"
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow flex flex-col justify-center bg-green-50">
-        <SearchBar />
+        <div className="flex flex-col items-center justify-center relative h-[24.5em] w-full">
+          <Image
+            src="/house-large.jpg"
+            alt="Inside of house picture"
+            fill
+            className="object-cover opacity-80"
+          />
+          <h1 className="text-gray-900 z-10 text-5xl font-bold mb-5">Home</h1>
+          <SearchBar />
+        </div>
 
         {/* Roofsy Info Section */}
         <section className="px-6 py-12 bg-white">
