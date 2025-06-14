@@ -1,5 +1,5 @@
-
 /*
+  id int
   price int
   feature-img string
   imgs [string]
@@ -16,11 +16,12 @@
 */
 export const propertyData = [
   {
+    id: 1,
     price: 325000,
     "feature-img": "/house-large.jpg",
     imgs: [
       "https://images.unsplash.com/photo-1570129477492-45c003edd2be",
-      "https://images.unsplash.com/photo-1560448071-67b8f1a5f4b4"
+      "https://images.unsplash.com/photo-1560448071-67b8f1a5f4b4",
     ],
     beds: 3,
     baths: 2,
@@ -30,14 +31,15 @@ export const propertyData = [
     details: "A charming 3-bedroom detached house with a spacious garden.",
     address: "12 Maple Drive",
     postcode: "SW1A 1AA",
-    agent: "GreenLeaf Estates"
+    agent: "GreenLeaf Estates",
   },
   {
+    id: 2,
     price: 475000,
     "feature-img": "/house-large.jpg",
     imgs: [
       "https://images.unsplash.com/photo-1565182999561-18d7dc61e0f9",
-      "https://images.unsplash.com/photo-1578898886828-56b51c11b1c1"
+      "https://images.unsplash.com/photo-1578898886828-56b51c11b1c1",
     ],
     beds: 4,
     baths: 3,
@@ -47,14 +49,15 @@ export const propertyData = [
     details: "Modern 4-bedroom townhouse close to local amenities.",
     address: "88 Oak Lane",
     postcode: "W1G 8PH",
-    agent: "UrbanNest Realty"
+    agent: "UrbanNest Realty",
   },
   {
+    id: 3,
     price: 210000,
     "feature-img": "/house-large.jpg",
     imgs: [
       "https://images.unsplash.com/photo-1599423300746-b62533397364",
-      "https://images.unsplash.com/photo-1586105251261-72a756497a12"
+      "https://images.unsplash.com/photo-1586105251261-72a756497a12",
     ],
     beds: 2,
     baths: 1,
@@ -64,14 +67,15 @@ export const propertyData = [
     details: "A cozy flat ideal for first-time buyers or investors.",
     address: "34 River Street",
     postcode: "E14 5AB",
-    agent: "EastEnd Lettings"
+    agent: "EastEnd Lettings",
   },
   {
+    id: 4,
     price: 600000,
     "feature-img": "/house-large.jpg",
     imgs: [
       "https://images.unsplash.com/photo-1558036117-15d82a90b9b4",
-      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914"
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914",
     ],
     beds: 5,
     baths: 3,
@@ -81,14 +85,15 @@ export const propertyData = [
     details: "Luxury 5-bedroom home with a private driveway and garden.",
     address: "1 Elm Grove",
     postcode: "NW3 6LH",
-    agent: "PrimeNest Properties"
+    agent: "PrimeNest Properties",
   },
   {
+    id: 5,
     price: 150000,
     "feature-img": "/house-large.jpg",
     imgs: [
       "https://images.unsplash.com/photo-1560185127-6c9d5baf9ae8",
-      "https://images.unsplash.com/photo-1574169208507-843761748d25"
+      "https://images.unsplash.com/photo-1574169208507-843761748d25",
     ],
     beds: 1,
     baths: 1,
@@ -98,14 +103,15 @@ export const propertyData = [
     details: "One-bedroom studio apartment in city centre.",
     address: "23 City Way",
     postcode: "EC1A 1BB",
-    agent: "MetroHomes Agency"
+    agent: "MetroHomes Agency",
   },
   {
+    id: 6,
     price: 980000,
     "feature-img": "/house-large.jpg",
     imgs: [
       "https://images.unsplash.com/photo-1599423300746-b62533397364",
-      "https://images.unsplash.com/photo-1600585154207-4f10485732ed"
+      "https://images.unsplash.com/photo-1600585154207-4f10485732ed",
     ],
     beds: 6,
     baths: 4,
@@ -115,14 +121,15 @@ export const propertyData = [
     details: "Stunning 6-bedroom countryside manor with scenic views.",
     address: "Old Hill Farm",
     postcode: "GU5 9QQ",
-    agent: "CountryNest Homes"
+    agent: "CountryNest Homes",
   },
   {
+    id: 7,
     price: 330000,
     "feature-img": "/house-large.jpg",
     imgs: [
       "https://images.unsplash.com/photo-1600607686701-5c1c06b3b77c",
-      "https://images.unsplash.com/photo-1599423300746-b62533397364"
+      "https://images.unsplash.com/photo-1599423300746-b62533397364",
     ],
     beds: 3,
     baths: 1,
@@ -132,14 +139,15 @@ export const propertyData = [
     details: "Refurbished 3-bed semi with modern fittings.",
     address: "16 Birch Close",
     postcode: "B32 3NT",
-    agent: "HomePoint Realty"
+    agent: "HomePoint Realty",
   },
   {
+    id: 8,
     price: 2500000,
     "feature-img": "/house-large.jpg",
     imgs: [
       "https://images.unsplash.com/photo-1586105251261-72a756497a12",
-      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914"
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914",
     ],
     beds: 7,
     baths: 5,
@@ -149,14 +157,15 @@ export const propertyData = [
     details: "Premier 7-bed mansion in Kensington with garden and garage.",
     address: "1 Queen's Walk",
     postcode: "W8 5TT",
-    agent: "Royal Living Group"
+    agent: "Royal Living Group",
   },
   {
+    id: 9,
     price: 675000,
     "feature-img": "/house-large.jpg",
     imgs: [
       "https://images.unsplash.com/photo-1565182999561-18d7dc61e0f9",
-      "https://images.unsplash.com/photo-1570129477492-45c003edd2be"
+      "https://images.unsplash.com/photo-1570129477492-45c003edd2be",
     ],
     beds: 4,
     baths: 2,
@@ -166,14 +175,15 @@ export const propertyData = [
     details: "Bright and spacious family home near top-rated schools.",
     address: "50 Meadow Rise",
     postcode: "LS6 1RF",
-    agent: "SmartMove UK"
+    agent: "SmartMove UK",
   },
   {
+    id: 10,
     price: 450000,
     "feature-img": "/house-large.jpg",
     imgs: [
       "https://images.unsplash.com/photo-1600585154232-061c6be204a7",
-      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914"
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914",
     ],
     beds: 3,
     baths: 2,
@@ -183,7 +193,6 @@ export const propertyData = [
     details: "Stylish 3-bed duplex in riverside development.",
     address: "7 Thames Quay",
     postcode: "SE10 0AX",
-    agent: "Riverline Realty"
-  }
+    agent: "Riverline Realty",
+  },
 ];
-

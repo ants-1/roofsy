@@ -2,10 +2,11 @@
 
 import { Armchair, BedDouble, House, Pin, Toilet } from "lucide-react";
 import Image from "next/image";
-
+import Link from "next/link";
 
 interface PropertyCardProps {
   property: {
+    id: number;
     price: number;
     ["feature-img"]: string;
     beds: number;
@@ -23,14 +24,14 @@ interface PropertyCardProps {
 export default function PropertyCard({ property }: PropertyCardProps) {
   return (
     <div className="bg-white rounded-2xl shadow flex flex-col sm:flex-row gap-1 justify-between items-stretch border border-gray-200 hover:shadow-md transition max-w-[45rem] w-full h-[34rem] sm:h-[16rem]">
-      <div className="relative w-full sm:w-64 h-72 sm:h-full overflow-hidden cursor-pointer">
+      <Link href={`/properties/${property.id}`} className="relative w-full sm:w-64 h-72 sm:h-full overflow-hidden cursor-pointer">
         <Image
           src={property["feature-img"]}
           alt="Property"
           fill
           className="object-cover rounded-t-lg sm:rounded-l-lg sm:rounded-r-none bg-gray-100"
         />
-      </div>
+      </Link>
 
 
       <div className="flex-1 flex flex-col justify-between p-4 sm:p-2 space-y-1">

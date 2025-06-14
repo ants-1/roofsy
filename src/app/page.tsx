@@ -1,8 +1,8 @@
 'use client';
-import Navbar from "./ui/navbar";
-import Footer from "./ui/footer";
-import SearchBar from "./ui/search";
-import { Button } from "./ui/button";
+import Navbar from "./ui/components/navbar";
+import Footer from "./ui/components/footer";
+import SearchBar from "./ui/components/search";
+import { Button } from "./ui/components/button";
 import { motion } from "framer-motion";
 import Image from "next/image"
 

@@ -7,8 +7,8 @@ import { CircleUserRound, Heart, UserRound } from "lucide-react";
 
 const links = [
   { name: 'Buy', href: '/buy' },
-  { name: 'Sell', href: '/sell' },
   { name: 'Rent', href: '/rent' },
+  { name: 'Sell', href: '/sell' },
 ];
 
 const iconLinks = [

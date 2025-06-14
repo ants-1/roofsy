@@ -1,13 +1,10 @@
 'use client';
-import { Filter, Search } from "lucide-react"
-import { useState } from "react";
+import { Search } from "lucide-react"
 
 export default function SearchBar() {
-  const [filter, setFilter] = useState("");
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Search submitted with filter:", filter);
+    console.log("Search submitted with filter:");
   };
 
   return (

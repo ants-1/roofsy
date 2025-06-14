@@ -1,6 +1,6 @@
 'use client';
 
-import { propertyData } from "../lib/mock-data";
+import { propertyData } from "../../lib/mock-data";
 import PropertyCard from "./property-card";
 
 export default function PropertyList() {

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../button";
+import { Button } from "../components/button";
 import { motion } from "framer-motion";
 
 export default function SignUpForm() {
