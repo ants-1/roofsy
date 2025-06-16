@@ -20,7 +20,7 @@ export default function BuyPage() {
             src="/house-buy.jpg"
             alt="Inside of house picture"
             fill
-            className="object-cover opacity-80 z-0"
+            className="object-cover opacity-50 z-0"
           />
           <h1 className="text-gray-900 z-10 text-5xl font-bold mb-5">Buy</h1>
           <SearchBar />

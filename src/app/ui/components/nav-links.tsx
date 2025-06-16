@@ -18,7 +18,7 @@ const iconLinks = [
 ]
 
 export const NavLinks = () => {
-  const isUser: boolean = false;
+  const isUser: boolean = true;
   const pathname = usePathname();
 
   return (

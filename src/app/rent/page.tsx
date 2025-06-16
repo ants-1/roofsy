@@ -27,10 +27,10 @@ export default function RentPage() {
       <main className="flex-grow flex flex-col  bg-green-50">
         <div className="flex flex-col items-center justify-center relative h-[24.5em] w-full">
           <Image
-            src="/house-buy.jpg"
+            src="/house-large.jpg"
             alt="Inside of house picture"
             fill
-            className="object-cover opacity-80 z-0"
+            className="object-cover opacity-50 z-0"
           />
           <h1 className="text-gray-900 z-10 text-5xl font-bold mb-5">Rent</h1>
           <SearchBar />
