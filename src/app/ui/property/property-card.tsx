@@ -1,24 +1,12 @@
 'use client';
 
+import { Property } from "@/app/lib/types";
 import { Armchair, BedDouble, House, Pin, Toilet } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 interface PropertyCardProps {
-  property: {
-    id: number;
-    price: number;
-    ["feature-img"]: string;
-    beds: number;
-    baths: number;
-    receptions: number;
-    ["property-type"]: string;
-    status: string;
-    details: string;
-    address: string;
-    postcode: string;
-    agent: string;
-  };
+  property: Property;
 }
 
 export default function PropertyCard({ property }: PropertyCardProps) {
