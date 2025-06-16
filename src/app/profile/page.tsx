@@ -47,7 +47,7 @@ export default function ProfilePage() {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow bg-green-50 py-10 px-6">
-        <div className="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-200">
+        <div className="max-w-[45rem] mx-auto bg-white p-6 rounded-xl shadow-md border border-gray-200">
           <h1 className="text-3xl font-bold text-green-800 mb-6">Profile</h1>
 
           <div className="mb-6">
