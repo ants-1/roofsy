@@ -23,7 +23,6 @@ export default function SearchBar({
     console.log("Search submitted with filter:", query);
   };
 
-  // Generate TypeAnimation sequence with delay
   const animationSequence: (string | number)[] = placeholder.flatMap((text) => [text, 2000]);
 
   return (

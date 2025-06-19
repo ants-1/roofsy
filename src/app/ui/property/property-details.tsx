@@ -19,7 +19,7 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
 
       <div className="relative w-full h-96 rounded-lg overflow-hidden mb-6">
         <Image
-          src={property["feature-img"]}
+          src={property.imgs[0]}
           alt={`Image of ${property.details}`}
           fill
           className="object-cover"
@@ -38,15 +38,15 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
           <Armchair width={24} /> <span>{property.receptions} Receptions</span>
         </div>
         <div className="flex items-center gap-2">
-          <House width={24} /> <span>{capitalize(property["property-type"])}</span>
+          <House width={24} /> <span>{capitalize(property.property_type)}</span>
         </div>
         <div className="flex items-center gap-2">
-          <Pin width={24} /> <span>{capitalize(property.status)}</span>
+          <Pin width={24} /> <span>{capitalize(property.property_status)}</span>
         </div>
       </div>
 
       <p className="mb-4"><strong>Price:</strong> £{property.price.toLocaleString()}</p>
-      <p className="mb-2"><strong>Address:</strong> {property.address}, {property.postcode}</p>
+      <p className="mb-2"><strong>Address:</strong> {property.property_address}, {property.postcode}</p>
       <p className="mb-2"><strong>Agent:</strong> {property.agent}</p>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">

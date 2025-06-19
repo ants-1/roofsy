@@ -1,3 +1,10 @@
+// import postgres from "postgres";
+// import { revalidatePath } from "next/cache";
+// import { redirect } from "next/navigation";
+
+// const sql = postgres(process.env.POSTGRES_URL!, {
+//   ssl: "require"
+// });
 
 // export async function authenticate() {
 
@@ -17,4 +24,12 @@
 
 // export async function deleteProperty() {
   
+// }
+
+// export async function addSavedProperty() {
+
+// }
+
+// export async function deleteSaveProperty() {
+
 // }

@@ -16,7 +16,6 @@ export default function DropdownMenu({ options }: DropdownMenuProps) {
   const handleSelect = (option: string) => {
     setSelected(option);
     setIsOpen(false);
-    console.log("Selected:", option);
   }
 
   return (

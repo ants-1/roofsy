@@ -1,15 +1,30 @@
 export interface Property {
-  id: number;
-  details: string;
+  id: string;
+  owner_id: string;
+  price: number;
+  imgs: string[];
   beds: number;
   baths: number;
   receptions: number;
-  "property-type": string;
-  status: string;
-  price: number;
-  address: string;
+  property_type: string;
+  property_status: "Sale" | "Rent" | "Sold" | string;
+  details: string;
+  property_address: string;
   postcode: string;
   agent: string;
-  imgs: string[];
-  "feature-img": string;
+}
+
+export interface Users {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  role: "User" | "Agent";
+}
+
+export interface Agents {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
 }

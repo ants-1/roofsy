@@ -4,6 +4,8 @@ import Navbar from "../ui/components/navbar";
 import SearchBar from "../ui/components/search";
 import PropertyList from "../ui/property/property-list";
 import Image from "next/image";
+import { fetchRentProperties } from "../lib/data";
+
 const minBedOptions = ["No Min", "Studio", "1", "2", "3", "4", "5", "6", "7", "8+"];
 const maxRentOptions = [
   "No Max",
@@ -20,7 +22,9 @@ const maxRentOptions = [
 ];
 const categoryOptions = ["No Location", "London", "Manchester", "Birmingham", "Liverpool", "Leeds", "Bristol", "Sheffield", "Edinburgh"];
 
-export default function RentPage() {
+export default async function RentPage() {
+  const properties = await fetchRentProperties();
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -40,7 +44,7 @@ export default function RentPage() {
             <DropdownMenu options={maxRentOptions} />
           </div>
         </div>
-        <PropertyList />
+        <PropertyList properties={properties} />
       </main>
       <Footer />
     </div>
