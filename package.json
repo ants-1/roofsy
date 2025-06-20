@@ -10,16 +10,19 @@
     "seed": "ts-node src/app/lib/seed.ts"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "clsx": "^2.1.1",
     "framer-motion": "^12.18.1",
     "lucide": "^0.515.0",
     "lucide-react": "^0.515.0",
     "next": "15.3.3",
+    "next-auth": "5.0.0-beta.28",
     "postgres": "^3.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-type-animation": "^3.2.0",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -1,13 +1,21 @@
 'use client';
-import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { useState, useActionState } from "react";
+import { Eye, EyeOff, OctagonAlert } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../components/button";
 import { motion } from "framer-motion";
+import { authenticate } from "@/app/lib/actions";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, formAction, isPending] = useActionState(
+    authenticate,
+    undefined,
+  );
 
   return (
     <div className="relative flex justify-center items-center min-h-screen w-full bg-transparent">
@@ -28,6 +36,7 @@ export default function LoginForm() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="w-96 h-fit bg-white bg-opacity-90 border border-gray-200 z-10 p-8 rounded-xl"
+          action={formAction}
         >
           <h1 className="text-2xl font-bold mb-4">Login to <span className="text-green-500 underline">Roofsy.</span></h1>
           <div className="space-y-4">
@@ -67,7 +76,15 @@ export default function LoginForm() {
               </div>
             </div>
           </div>
-          <Button className="mt-10 w-full justify-center">Login</Button>
+          <input type="hidden" name="redirectTo" value={callbackUrl} />
+          <Button className="mt-10 w-full justify-center" aria-disabled={isPending}>Login</Button>
+
+          {errorMessage && (
+            <div className="flex justify-center mt-2">
+              <OctagonAlert className="h-5 w-5 text-red-500 mr-2" />
+              <p className="text-sm text-red-500">{errorMessage}</p>
+            </div>
+          )}
 
           <div className="inline-flex items-center justify-center w-full relative">
             <hr className="w-64 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />

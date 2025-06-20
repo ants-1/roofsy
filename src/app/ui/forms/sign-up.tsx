@@ -1,14 +1,19 @@
 'use client';
-import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { useState, useActionState } from "react";
+import { Eye, EyeOff, OctagonAlert } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../components/button";
 import { motion } from "framer-motion";
+import { signUp } from "@/app/lib/actions";
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [errorMessage, formAction, isPending] = useActionState(
+    signUp,
+    undefined
+  )
 
   return (
     <div className="relative flex justify-center items-center min-h-screen w-full bg-transparent">
@@ -25,11 +30,12 @@ export default function SignUpForm() {
 
       {/* Form */}
       <div className="md:w-1/2 md:h-screen rounded-xl md:rounded-none flex items-center justify-center bg-green-50 md:p-5">
-       <motion.form
+        <motion.form
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="w-96 h-fit bg-white bg-opacity-90 border border-gray-200 z-10 p-8 rounded-xl"
+          action={formAction}
         >
           <h1 className="text-2xl font-bold mb-4">Sign Up to <span className="text-green-500 underline">Roofsy.</span></h1>
           <div className="space-y-4">
@@ -105,7 +111,15 @@ export default function SignUpForm() {
               </div>
             </div>
           </div>
-          <Button className="mt-10 w-full justify-center">Sign Up</Button>
+
+          <Button className="mt-10 w-full justify-center" aria-disabled={isPending}>Sign Up</Button>
+
+          {errorMessage && (
+            <div className="flex justify-center mt-2">
+              <OctagonAlert className="h-5 w-5 text-red-500 mr-2" />
+              <p className="text-sm text-red-500">{errorMessage}</p>
+            </div>
+          )}
 
           <div className="mt-4 flex justify-center">
             <Link className="text-sm text-center" href="/login">
