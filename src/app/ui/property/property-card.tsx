@@ -4,17 +4,26 @@ import { Property } from "@/app/lib/types";
 import { Armchair, BedDouble, House, Pin, Toilet } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import PropertyDropdownMenu from "./property-dropdown-menu";
 
 interface PropertyCardProps {
   property: Property;
 }
 
+const FALLBACK_IMAGE = "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800&h=600";
+
 export default function PropertyCard({ property }: PropertyCardProps) {
+  const imageSrc =
+    property.imgs && property.imgs[0] && property.imgs[0].trim() !== ""
+      ? property.imgs[0]
+      : FALLBACK_IMAGE;
+  const userId = "b3e7d9a9-9f10-4bc7-95f4-13d4a5824f26";
+
   return (
     <div className="bg-white rounded-2xl shadow flex flex-col sm:flex-row gap-1 justify-between items-stretch border border-gray-200 hover:shadow-md transition max-w-[45rem] w-full h-[34rem] sm:h-[16rem]">
       <Link href={`/properties/${property.id}`} className="relative w-full sm:w-64 h-72 sm:h-full overflow-hidden cursor-pointer">
         <Image
-          src={property.imgs[0]}
+          src={imageSrc}
           alt="Property"
           fill
           className="object-cover rounded-t-lg sm:rounded-l-lg sm:rounded-r-none bg-gray-100"
@@ -23,7 +32,14 @@ export default function PropertyCard({ property }: PropertyCardProps) {
 
 
       <div className="flex-1 flex flex-col justify-between p-4 sm:p-2 space-y-1">
-        <h2 className="text-xl font-semibold text-green-800">£{property.price.toLocaleString()}</h2>
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-semibold text-green-800">£{property.price.toLocaleString()}</h2>
+          {userId === property.owner_id && (
+            <PropertyDropdownMenu propertyId={property.id} />
+          )}
+        </div>
+
+
         <p className="text-gray-700">{property.details}</p>
         <p className="text-sm text-gray-600">
           <strong>Address:</strong> {property.property_address}, {property.postcode}

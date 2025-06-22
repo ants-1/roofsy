@@ -35,6 +35,7 @@ export default async function RentPage() {
             alt="Inside of house picture"
             fill
             className="object-cover opacity-50 z-0"
+            priority
           />
           <h1 className="text-gray-900 z-10 text-5xl font-bold mb-5">Rent</h1>
           <SearchBar />

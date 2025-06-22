@@ -12,13 +12,14 @@ export interface Property {
   property_address: string;
   postcode: string;
   agent: string;
+  created_at?: Date;
 }
 
 export interface Users {
   id: string;
   name: string;
   email: string;
-  password: string;
+  password?: string;
   role: "User" | "Agent";
 }
 

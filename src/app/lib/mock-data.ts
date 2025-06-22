@@ -15,21 +15,6 @@ export const users = [
   },
 ];
 
-export const agents = [
-  {
-    id: "c9d8f1a2-78b3-4e5c-921d-4f8341e7b6c0",
-    name: "Prime Estates",
-    email: "prime.agent@agency.com",
-    phone: "07123456789",
-  },
-  {
-    id: "d1e2f3b4-5c6d-7e8f-901a-bcdef1234567",
-    name: "Homes UK",
-    email: "home.uk@homesuk.com",
-    phone: "07987654321",
-  },
-];
-
 const placeholderImgsSet = [
   [
     "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800&h=600",
@@ -85,7 +70,7 @@ export const properties = [
     details: "A beautiful 3-bedroom detached house with a spacious garden.",
     property_address: "123 Green Lane",
     postcode: "SW1A 1AA",
-    agent: agents[0].name,
+    agent: users[0].name,
   },
   {
     id: "f2d9e1c4-8b6a-4d5e-9f10-7c8b9a0d1234",
@@ -100,7 +85,7 @@ export const properties = [
     details: "Spacious 4-bedroom home in a quiet neighbourhood.",
     property_address: "456 Blue Street",
     postcode: "W1D 3QF",
-    agent: agents[1].name,
+    agent: users[1].name,
   },
   {
     id: "a2c3d4e5-f678-490a-bcde-f1234567890a",
@@ -115,7 +100,7 @@ export const properties = [
     details: "Charming terraced home with modern interiors.",
     property_address: "789 Red Road",
     postcode: "E14 5AB",
-    agent: agents[0].name,
+    agent: users[0].name,
   },
   {
     id: "b1a2c3d4-e5f6-4789-0abc-def123456789",
@@ -130,7 +115,7 @@ export const properties = [
     details: "Luxury home with private driveway and garden.",
     property_address: "1010 Sunset Ave",
     postcode: "N1 1AA",
-    agent: agents[1].name,
+    agent: users[1].name,
   },
   {
     id: "c3d4e5f6-a789-4b01-9cde-f2345678901b",
@@ -145,7 +130,7 @@ export const properties = [
     details: "Modern flat close to public transport.",
     property_address: "88 River Street",
     postcode: "SE1 2LN",
-    agent: agents[0].name,
+    agent: users[0].name,
   },
   {
     id: "d4e5f6a7-b890-4c12-8def-0123456789ac",
@@ -160,7 +145,7 @@ export const properties = [
     details: "Lovely family home near schools.",
     property_address: "65 Oakwood Drive",
     postcode: "NW10 5LT",
-    agent: agents[1].name,
+    agent: users[1].name,
   },
   {
     id: "e5f6a7b8-c901-4d23-9efa-1234567890bd",
@@ -175,7 +160,7 @@ export const properties = [
     details: "Grand house with large plot and garage.",
     property_address: "33 Hillside Way",
     postcode: "KT1 3DJ",
-    agent: agents[0].name,
+    agent: users[0].name,
   },
   {
     id: "f6a7b8c9-d012-4e34-9fb0-234567890cde",
@@ -190,7 +175,7 @@ export const properties = [
     details: "Compact city studio apartment.",
     property_address: "5 Central Plaza",
     postcode: "EC2M 4AA",
-    agent: agents[1].name,
+    agent: users[1].name,
   },
   {
     id: "a7b8c9d0-e123-4f45-9fc1-34567890def1",
@@ -205,7 +190,7 @@ export const properties = [
     details: "Bright and spacious flat with balcony.",
     property_address: "99 Ocean View",
     postcode: "BN1 4GH",
-    agent: agents[0].name,
+    agent: users[0].name,
   },
   {
     id: "b8c9d0e1-f234-4056-9fd2-4567890ef123",
@@ -220,7 +205,7 @@ export const properties = [
     details: "Well-maintained home with driveway and garden.",
     property_address: "21 Lavender Close",
     postcode: "BR3 1YY",
-    agent: agents[1].name,
+    agent: users[1].name,
   },
   {
     id: "c9d0e1f2-a345-4167-afe3-567890f12345",
@@ -235,22 +220,22 @@ export const properties = [
     details: "Stylish renovated terraced house.",
     property_address: "7 Maple Way",
     postcode: "CR0 2DT",
-    agent: agents[0].name,
+    agent: users[0].name,
   },
   {
     id: "d0e1f2a3-b456-4278-b0f4-67890f123456",
     owner_id: users[1].id,
-    price: 715000,
+    price: 1500,
     imgs: placeholderImgsSet[11],
     beds: 4,
     baths: 3,
     receptions: 2,
     property_type: "Detached",
-    property_status: "Sale",
+    property_status: "Rent",
     details: "Contemporary detached house in premium location.",
     property_address: "4 Elm Street",
     postcode: "HA1 1AA",
-    agent: agents[1].name,
+    agent: users[1].name,
   },
 ];
 

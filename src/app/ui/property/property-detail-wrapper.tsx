@@ -18,7 +18,7 @@ export default function PropertyDetailWrapper({ property }: { property: Property
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="flex-grow flex flex-col bg-green-50">
+      <main className="flex-grow flex flex-col bg-green-50 p-4">
         {loading ? <PropertyDetailSkeleton /> : <PropertyDetail property={property} />}
       </main>
       <Footer />

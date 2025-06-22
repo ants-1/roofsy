@@ -1,5 +1,5 @@
 // import postgres from "postgres";
-// import { users, agents, properties, savedProperties } from "../lib/mock-data";
+// import { users, properties, savedProperties } from "../lib/mock-data";
 
 // const sql = postgres(process.env.POSTGRES_URL!, {
 //   ssl: "require",
@@ -30,30 +30,6 @@
 //   );
 // }
 
-// async function seedAgents() {
-//   await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-
-//   await sql`
-//     CREATE TABLE IF NOT EXISTS agents (
-//       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-//       name VARCHAR(255) NOT NULL,
-//       email VARCHAR(255) NOT NULL UNIQUE,
-//       phone VARCHAR(255)
-//     )
-//   `;
-
-//   await Promise.all(
-//     agents.map(
-//       (agent) =>
-//         sql`
-//         INSERT INTO agents (id, name, email, phone)
-//         VALUES (${agent.id}, ${agent.name}, ${agent.email}, ${agent.phone})
-//         ON CONFLICT (email) DO NOTHING
-//       `
-//     )
-//   );
-// }
-
 // async function seedProperties() {
 //   await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
@@ -61,7 +37,7 @@
 //     CREATE TABLE IF NOT EXISTS properties (
 //       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
 //       owner_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-//       agent_id UUID NOT NULL REFERENCES agents(id) ON DELETE SET NULL,
+//       agent VARCHAR(255),
 //       price INT NOT NULL,
 //       feature_img VARCHAR(255),
 //       imgs TEXT[] NOT NULL,
@@ -79,48 +55,38 @@
 
 //   await Promise.all(
 //     properties.map((property) => {
-//       // Find the agent object for this property by name
-//       const agent = agents.find((a) => a.name === property.agent);
-
-//       if (!agent) {
-//         console.warn(
-//           `Agent not found for property ${property.id} with agent name ${property.agent}`
-//         );
-//         return Promise.resolve();
-//       }
-
 //       return sql`
-//       INSERT INTO properties (
-//         id,
-//         owner_id,
-//         agent_id,
-//         price,
-//         imgs,
-//         beds,
-//         baths,
-//         receptions,
-//         property_type,
-//         property_status,
-//         details,
-//         property_address,
-//         postcode
-//       ) VALUES (
-//         ${property.id},
-//         ${property.owner_id},
-//         ${agent.id},         
-//         ${property.price},
-//         ${property.imgs},
-//         ${property.beds},
-//         ${property.baths},
-//         ${property.receptions},
-//         ${property.property_type},
-//         ${property.property_status},
-//         ${property.details},
-//         ${property.property_address},
-//         ${property.postcode}
-//       )
-//       ON CONFLICT (id) DO NOTHING
-//     `;
+//         INSERT INTO properties (
+//           id,
+//           owner_id,
+//           agent,
+//           price,
+//           imgs,
+//           beds,
+//           baths,
+//           receptions,
+//           property_type,
+//           property_status,
+//           details,
+//           property_address,
+//           postcode
+//         ) VALUES (
+//           ${property.id},
+//           ${property.owner_id},
+//           ${property.agent},
+//           ${property.price},
+//           ${property.imgs ?? []},
+//           ${property.beds},
+//           ${property.baths},
+//           ${property.receptions},
+//           ${property.property_type},
+//           ${property.property_status},
+//           ${property.details},
+//           ${property.property_address},
+//           ${property.postcode}
+//         )
+//         ON CONFLICT (id) DO NOTHING
+//       `;
 //     })
 //   );
 // }
@@ -148,11 +114,18 @@
 //   );
 // }
 
+// async function dropTables() {
+//   await sql`DROP TABLE IF EXISTS saved_properties CASCADE;`;
+//   await sql`DROP TABLE IF EXISTS properties CASCADE;`;
+//   await sql`DROP TABLE IF EXISTS users CASCADE;`;
+//   await sql`DROP TABLE IF EXISTS agents CASCADE;`;
+// }
+
 // export async function GET() {
 //   try {
 //     await sql.begin(async (sql) => {
+//       await dropTables();
 //       await seedUsers();
-//       await seedAgents();
 //       await seedProperties();
 //       await seedSavedProperties();
 //     });

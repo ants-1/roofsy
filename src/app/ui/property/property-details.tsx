@@ -12,14 +12,22 @@ function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+const FALLBACK_IMAGE = "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800&h=600";
+
 export default function PropertyDetail({ property }: PropertyDetailProps) {
+  const imageSrc =
+    property.imgs && property.imgs[0] && property.imgs[0].trim() !== ""
+      ? property.imgs[0]
+      : FALLBACK_IMAGE;
+
+
   return (
     <div className="max-w-4xl w-full mx-auto p-6 bg-white rounded-xl shadow-md my-8 border border-gray-200">
       <h1 className="text-3xl font-bold mb-4 text-green-800">{property.details}</h1>
 
       <div className="relative w-full h-96 rounded-lg overflow-hidden mb-6">
         <Image
-          src={property.imgs[0]}
+          src={imageSrc}
           alt={`Image of ${property.details}`}
           fill
           className="object-cover"

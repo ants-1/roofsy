@@ -7,6 +7,7 @@ import { Button } from "../components/button";
 import { motion } from "framer-motion";
 import { authenticate } from "@/app/lib/actions";
 import { useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
@@ -93,7 +94,11 @@ export default function LoginForm() {
             </span>
           </div>
 
-          <Button className="w-full justify-center bg-green-100! hover:bg-green-300!">
+          <Button
+            className="w-full justify-center bg-green-100! hover:bg-green-300!"
+            type="button"
+            onClick={() => signIn('google', { callbackUrl: '/' })}
+          >
             <Image src="/google-icon.png" width={20} height={20} alt="Google icon" className="mr-1" />
             Sign in with Google
           </Button>

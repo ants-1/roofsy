@@ -10,7 +10,7 @@ export async function fetchBuyProperties() {
   try {
     const data = await sql<
       Property[]
-    >`SELECT * FROM properties WHERE property_status = 'Sale'`;
+    >`SELECT * FROM properties WHERE property_status = 'Sale' OR property_status = 'sale'`;
 
     return data;
   } catch (err) {
@@ -24,7 +24,7 @@ export async function fetchRentProperties() {
   try {
     const data = await sql<
       Property[]
-    >`SELECT * FROM properties WHERE property_status = 'Rent'`;
+    >`SELECT * FROM properties WHERE property_status = 'Rent' OR property_status = 'rent'`;
 
     return data;
   } catch (err) {
