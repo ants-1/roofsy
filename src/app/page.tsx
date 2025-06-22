@@ -16,7 +16,7 @@ export default function Home() {
             src="/house-large.jpg"
             alt="Inside of house picture"
             fill
-            className="object-cover opacity-80"
+            className="object-cover opacity-50"
           />
           <h1 className="text-gray-900 z-10 text-5xl font-bold mb-5">Home</h1>
           <SearchBar />

@@ -132,7 +132,6 @@ export default function SignUpForm() {
         </motion.form>
       </div>
 
-
       {/* Side Image for md+ screens */}
       <div className="hidden md:block relative w-1/2 h-screen">
         <Image
