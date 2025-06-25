@@ -243,7 +243,7 @@ export async function updateProperty(prevState: State, formData: FormData) {
   redirect(redirectLink);
 }
 
-export async function deleteProperty(id: string): Promise<State | void> {
+export async function deleteProperty(id: string) {
   try {
     await sql`DELETE FROM properties WHERE id = ${id}`;
   } catch (error) {
@@ -253,14 +253,6 @@ export async function deleteProperty(id: string): Promise<State | void> {
     };
   }
 }
-
-// export async function addSavedProperty() {
-
-// }
-
-// export async function deleteSavedProperty() {
-
-// }
 
 export async function updateUserInfo(prevState: State, formData: FormData) {
   const id = formData.get("id")?.toString();
@@ -311,7 +303,6 @@ export async function updateUserInfo(prevState: State, formData: FormData) {
 
   return { message: "User information updated successfully." };
 }
-
 
 export async function updateUserPassword(prevState: State, formData: FormData) {
   const id = formData.get("id")?.toString();
