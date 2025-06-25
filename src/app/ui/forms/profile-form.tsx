@@ -1,5 +1,9 @@
 "use client";
+
 import { useState } from "react";
+import { updateUserInfo, updateUserPassword } from "@/app/lib/actions";
+import { Button } from "../components/button";
+
 
 interface ProfileFormProps {
   userInfo: {
@@ -10,31 +14,63 @@ interface ProfileFormProps {
 }
 
 export default function ProfileForm({ userInfo }: ProfileFormProps) {
-  const [formData, setFormData] = useState({
+  const [infoData, setInfoData] = useState({
     name: userInfo.name,
     email: userInfo.email,
+  });
+  const [passwordData, setPasswordData] = useState({
     oldPassword: "",
     newPassword: "",
-  });
+  })
 
   const [showForm, setShowForm] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInfoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setInfoData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handlePasswordChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setPasswordData((prev) => ({ ...prev, [name]: value }));
+  }
+
+  const handleInfoSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (formData.oldPassword !== "123456") {
-      alert("Old password is incorrect.");
-      return;
-    }
+    const formData = new FormData();
+    formData.append("id", userInfo.id);
+    formData.append("name", infoData.name);
+    formData.append("email", infoData.email);
 
-    alert("Profile updated!");
+    const res = await updateUserInfo({ message: null }, formData);
+    setMessage(res?.message || "Profile info updated.");
     setShowForm(false);
+
+    if (!res?.errors) {
+      userInfo.name = infoData.name;
+      userInfo.email = infoData.email;
+      setInfoData({ name: userInfo.name, email: userInfo.email });
+    }
   };
+
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("id", userInfo.id);
+    formData.append("oldPassword", passwordData.oldPassword);
+    formData.append("newPassword", passwordData.newPassword);
+
+    const res = await updateUserPassword({ message: null }, formData);
+    setMessage(res?.message || "Password updated.");
+    setShowForm(false);
+
+    if (!res?.errors) {
+      setPasswordData({ oldPassword: "", newPassword: "" });
+    }
+  }
 
   return (
     <>
@@ -47,80 +83,93 @@ export default function ProfileForm({ userInfo }: ProfileFormProps) {
         </p>
       </div>
 
-      <button
+      <Button
         onClick={() => setShowForm((prev) => !prev)}
-        className="mb-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
       >
         {showForm ? "Hide Edit Form" : "Edit Profile"}
-      </button>
-
+      </Button>
       {showForm && (
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-          <h2 className="text-xl font-semibold mb-2">Update Info</h2>
+        <>
+          <form onSubmit={handleInfoSubmit} className="space-y-4 mt-4">
+            <h2 className="text-xl font-semibold mb-2">Update Info</h2>
 
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium">
-              Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              value={formData.name}
-              onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium">
+                Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                value={infoData.name}
+                onChange={handleInfoChange}
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              />
+            </div>
 
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium">
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={infoData.email}
+                onChange={handleInfoChange}
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              />
+            </div>
 
-          <div>
-            <label htmlFor="oldPassword" className="block text-sm font-medium">
-              Old Password
-            </label>
-            <input
-              id="oldPassword"
-              name="oldPassword"
-              type="password"
-              value={formData.oldPassword}
-              onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
+            <Button
+              type="submit"
+            >
+              Save Info
+            </Button>
+          </form>
 
-          <div>
-            <label htmlFor="newPassword" className="block text-sm font-medium">
-              New Password
-            </label>
-            <input
-              id="newPassword"
-              name="newPassword"
-              type="password"
-              value={formData.newPassword}
-              onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
-            />
-          </div>
+          <form onSubmit={handlePasswordSubmit} className="space-y-4 mt-8">
+            <h2 className="text-xl font-semibold mb-2">Update Password</h2>
 
-          <button
-            type="submit"
-            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
-          >
-            Save Changes
-          </button>
-        </form>
+            <div>
+              <label htmlFor="oldPassword" className="block text-sm font-medium">
+                Old Password
+              </label>
+              <input
+                id="oldPassword"
+                name="oldPassword"
+                type="password"
+                value={passwordData.oldPassword}
+                onChange={handlePasswordChange}
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="newPassword" className="block text-sm font-medium">
+                New Password
+              </label>
+              <input
+                id="newPassword"
+                name="newPassword"
+                type="password"
+                value={passwordData.newPassword}
+                onChange={handlePasswordChange}
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-lg"
+              />
+            </div>
+
+            <Button
+              type="submit"
+            >
+              Change Password
+            </Button>
+          </form>
+        </>
+      )}
+
+      {message && (
+        <div className="mt-6 text-green-700 font-semibold">{message}</div>
       )}
     </>
   );

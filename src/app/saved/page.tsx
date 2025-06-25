@@ -1,13 +1,21 @@
+import { redirect } from "next/navigation";
+import { auth } from "../../../auth";
 import { fetchSavedProperties } from "../lib/data";
 import Footer from "../ui/components/footer";
 import Navbar from "../ui/components/navbar";
 import PropertyList from "../ui/property/property-list";
 
 export default async function SavedPage() {
-    const userInfo = {
-    id: "b3e7d9a9-9f10-4bc7-95f4-13d4a5824f26",
-    name: "Bob Smith",
-    email: "bob@example.com",
+  const session = await auth();
+
+  if (!session) {
+    redirect("/login");
+  }
+
+  const userInfo = {
+    id: session?.user?.id || "",
+    name: session?.user?.name || "",
+    email: session?.user?.email || "",
   };
   const properties = await fetchSavedProperties(userInfo.id);
 

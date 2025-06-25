@@ -3,12 +3,20 @@ import Navbar from "../ui/components/navbar";
 import PropertyList from "../ui/property/property-list";
 import { fetchMyProperties } from "../lib/data";
 import ProfileForm from "../ui/forms/profile-form";
+import { auth } from "../../../auth";
+import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
+  const session = await auth();
+
+  if (!session) {
+    redirect("/login");
+  }
+
   const userInfo = {
-    id: "b3e7d9a9-9f10-4bc7-95f4-13d4a5824f26",
-    name: "Bob Smith",
-    email: "bob@example.com",
+    id: session?.user?.id || "",
+    name: session?.user?.name || "",
+    email: session?.user?.email || "",
   };
 
   const properties = await fetchMyProperties(userInfo.id);

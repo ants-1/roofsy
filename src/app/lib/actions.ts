@@ -74,7 +74,7 @@ export type State = {
   errors?: Record<string, string[]>;
 };
 
-const FormSchema = z.object({
+const PropertyFormSchema = z.object({
   id: z.string(),
   ownerId: z.string(),
   price: z.coerce.number().gt(0, { message: "Price must be greater than 0." }),
@@ -90,9 +90,25 @@ const FormSchema = z.object({
   imgs: z.any(),
 });
 
-const CreateProperty = FormSchema.omit({ id: true });
+const UserFormSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string().email(),
+});
 
-const UpdateProperty = FormSchema.omit({ id: true });
+const UserPasswordFormSchema = z.object({
+  id: z.string(),
+  oldPassword: z.string(),
+  newPassword: z.string(),
+});
+
+const CreateProperty = PropertyFormSchema.omit({ id: true });
+
+const UpdateProperty = PropertyFormSchema.omit({ id: true });
+
+const UpdateUserInfo = UserFormSchema.omit({ id: true });
+
+const UpdateUserPassword = UserPasswordFormSchema.omit({ id: true });
 
 export async function createProperty(prevState: State, formData: FormData) {
   const validatedFields = CreateProperty.safeParse({
@@ -155,7 +171,6 @@ export async function createProperty(prevState: State, formData: FormData) {
 
 export async function updateProperty(prevState: State, formData: FormData) {
   const id = formData.get("id")?.toString();
-  console.log("id", id);
 
   if (!id) {
     return { message: "ID is missing for update." };
@@ -243,6 +258,113 @@ export async function deleteProperty(id: string): Promise<State | void> {
 
 // }
 
-// export async function deleteSavedPropertY() {
+// export async function deleteSavedProperty() {
 
 // }
+
+export async function updateUserInfo(prevState: State, formData: FormData) {
+  const id = formData.get("id")?.toString();
+
+  if (!id) {
+    return { message: "ID is missing for updating user." };
+  }
+
+  const validatedFields = UpdateUserInfo.safeParse({
+    name: formData.get("name"),
+    email: formData.get("email"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Validation Failed: Could not update user information.",
+    };
+  }
+
+  const { name, email } = validatedFields.data;
+
+  const existingUser = await sql`SELECT * FROM users WHERE id = ${id}`;
+
+  if (existingUser.length === 0) {
+    return { message: "User not found with provided ID." };
+  }
+
+  try {
+    const result = await sql`
+      UPDATE users SET
+        name = ${name},
+        email = ${email}
+      WHERE id = ${id}
+    `;
+
+    if (result.count === 0) {
+      return { message: "No user found with the provided ID to update." };
+    }
+  } catch (error) {
+    console.error(error);
+    return {
+      message: "Database Error: Failed to update user's information.",
+    };
+  }
+
+  revalidatePath("/");
+
+  return { message: "User information updated successfully." };
+}
+
+
+export async function updateUserPassword(prevState: State, formData: FormData) {
+  const id = formData.get("id")?.toString();
+
+  if (!id) {
+    return { message: "ID is missing for updating user password." };
+  }
+
+  const validatedFields = UpdateUserPassword.safeParse({
+    oldPassword: formData.get("oldPassword")?.toString(),
+    newPassword: formData.get("newPassword")?.toString(),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Validation Failed: Could not update password.",
+    };
+  }
+
+  const { oldPassword, newPassword } = validatedFields.data;
+
+  const user = await sql`SELECT password FROM users WHERE id = ${id}`;
+  const existingPassword = user[0]?.password;
+
+  if (!existingPassword) {
+    return { message: "User has no password set." };
+  }
+
+  const isMatch = await bcrypt.compare(oldPassword, existingPassword);
+
+  if (!isMatch) {
+    return {
+      message: "Old password is incorrect.",
+    };
+  }
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  try {
+    await sql`
+      UPDATE users SET 
+        password = ${hashedPassword}
+      WHERE id = ${id}
+    `;
+  } catch (error) {
+    console.error(error);
+    return {
+      message: "Database Error: Failed to update user's password.",
+    };
+  }
+
+  revalidatePath("/");
+
+  return { message: "Password updated successfully." };
+}

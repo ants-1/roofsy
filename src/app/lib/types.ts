@@ -20,12 +20,4 @@ export interface Users {
   name: string;
   email: string;
   password?: string;
-  role: "User" | "Agent";
-}
-
-export interface Agents {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
 }
