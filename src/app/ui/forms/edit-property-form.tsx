@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState, useTransition } from 'react';
 import Image from 'next/image';
 import Footer from '@/app/ui/components/footer';
 import Navbar from '@/app/ui/components/navbar';
@@ -9,6 +9,7 @@ import { Upload } from 'lucide-react';
 import { Property } from '@/app/lib/types';
 import { updateProperty, State } from '@/app/lib/actions';
 import { useActionState } from 'react';
+import { useSession } from 'next-auth/react';
 
 interface Props {
   property: Property;
@@ -16,26 +17,67 @@ interface Props {
 
 export default function EditPropertyForm({ property }: Props) {
   const initialState: State = { message: null, errors: {} };
-  const [state, formAction] = useActionState(
-    updateProperty,
-    initialState
-  );
-  const userId = "b3e7d9a9-9f10-4bc7-95f4-13d4a5824f26";
+  const [state, formAction] = useActionState(updateProperty, initialState);
+  const [isPending, startTransition] = useTransition();
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [formData, setFormData] = useState<Property>(property);
+  const [files, setFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>(property?.imgs || []);
 
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    const previews = files.map(file => URL.createObjectURL(file));
+    const selected = Array.from(e.target.files || []);
+    if (selected.length === 0) return;
+
+    setFiles(prev => [...prev, ...selected]);
+    const previews = selected.map(file => URL.createObjectURL(file));
     setImagePreviews(prev => [...prev, ...previews]);
+
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const formDataPayload = new FormData(form);
+
+    const urls: string[] = [...(property.imgs || [])];
+    for (const file of files) {
+      const data = new FormData();
+      data.append('file', file);
+
+      try {
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          body: data,
+        });
+
+        const json = await res.json();
+
+        if (json?.url) {
+          urls.push(json.url);
+        } 
+      } catch (err) {
+        console.error('Upload error:', err);
+      }
+    }
+
+    formDataPayload.set('imgs', JSON.stringify(urls));
+    formDataPayload.set('ownerId', property.owner_id);
+    formDataPayload.set('id', property.id);
+
+    startTransition(() => {
+      formAction(formDataPayload);
+    });
   };
 
   return (
@@ -43,7 +85,7 @@ export default function EditPropertyForm({ property }: Props) {
       <Navbar />
       <main className="flex-grow bg-green-50 px-4 py-8">
         <form
-          action={formAction}
+          onSubmit={handleSubmit}
           className="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-md border border-gray-200"
         >
           <h1 className="text-3xl font-bold text-green-700 mb-6">Edit Property</h1>
@@ -180,22 +222,21 @@ export default function EditPropertyForm({ property }: Props) {
           <div className="mt-6">
             <label className="block mb-2 font-medium">Upload New Images</label>
             <input
-              id="edit-upload"
+              ref={fileInputRef}
               type="file"
               accept="image/*"
               multiple
               onChange={handleImageUpload}
               className="hidden"
             />
-            <label htmlFor="edit-upload">
-              <Button
-                type="button"
-                className="flex items-center gap-2 text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg"
-              >
-                <Upload size={18} />
-                Upload Images
-              </Button>
-            </label>
+            <Button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="flex items-center gap-2 text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg"
+            >
+              <Upload size={18} />
+              Upload Images
+            </Button>
           </div>
 
           {/* Previews */}
@@ -224,10 +265,10 @@ export default function EditPropertyForm({ property }: Props) {
               ))
             )}
 
-          <input type="hidden" name="ownerId" value={userId} />
+          <input type="hidden" name="ownerId" value={userId ?? ""} />
           <input type="hidden" name="id" value={formData.id} />
           <Button type="submit" className="mt-8 w-full justify-center">
-            Save Changes
+            {isPending ? 'Saving...' : 'Save Changes'}
           </Button>
         </form>
       </main>

@@ -123,7 +123,13 @@ export async function createProperty(prevState: State, formData: FormData) {
     property_address: formData.get("property_address"),
     postcode: formData.get("postcode"),
     agent: formData.get("agent"),
-    // imgs: formData.get("imgs"),
+    imgs: JSON.parse(formData.get("imgs")?.toString() || "[]"),
+  });
+
+  console.log({
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.CLOUDINARY_API_KEY,
+    apiSecretExists: !!process.env.CLOUDINARY_API_SECRET,
   });
 
   if (!validatedFields.success) {
@@ -145,7 +151,7 @@ export async function createProperty(prevState: State, formData: FormData) {
     property_address,
     postcode,
     agent,
-    // imgs,
+    imgs,
   } = validatedFields.data;
 
   try {
@@ -153,7 +159,7 @@ export async function createProperty(prevState: State, formData: FormData) {
       INSERT INTO properties (
         owner_id, price, beds, baths, receptions, property_type, property_status, details, property_address, postcode, agent, imgs
       ) VALUES (
-        ${ownerId}, ${price}, ${beds}, ${baths}, ${receptions}, ${property_type}, ${property_status}, ${details}, ${property_address}, ${postcode}, ${agent}, ${[]}
+        ${ownerId}, ${price}, ${beds}, ${baths}, ${receptions}, ${property_type}, ${property_status}, ${details}, ${property_address}, ${postcode}, ${agent}, ${imgs}
       )
     `;
   } catch (error) {
@@ -189,7 +195,7 @@ export async function updateProperty(prevState: State, formData: FormData) {
     property_address: formData.get("property_address"),
     postcode: formData.get("postcode"),
     agent: formData.get("agent"),
-    // imgs: formData.get("imgs"),
+    imgs: JSON.parse(formData.get("imgs")?.toString() || "[]"),
   });
 
   if (!validatedFields.success) {
@@ -211,7 +217,7 @@ export async function updateProperty(prevState: State, formData: FormData) {
     property_address,
     postcode,
     agent,
-    // imgs,
+    imgs,
   } = validatedFields.data;
 
   try {
@@ -227,7 +233,8 @@ export async function updateProperty(prevState: State, formData: FormData) {
         details = ${details},
         property_address = ${property_address},
         postcode = ${postcode},
-        agent = ${agent}
+        agent = ${agent},
+        imgs = ${imgs}
       WHERE id = ${id}
     `;
   } catch (error) {
