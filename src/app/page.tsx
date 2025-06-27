@@ -2,7 +2,6 @@
 import Navbar from "./ui/components/navbar";
 import Footer from "./ui/components/footer";
 import SearchBar from "./ui/components/search";
-import { Button } from "./ui/components/button";
 import { motion } from "framer-motion";
 import Image from "next/image"
 
@@ -44,32 +43,6 @@ export default function Home() {
               <p>Find rental homes that fit your lifestyle and budget, with flexible options for short or long term.</p>
             </div>
           </motion.div>
-        </section>
-
-        {/* Categories Section */}
-        <section className="px-6 py-12 bg-green-100">
-          <h2 className="text-2xl font-bold text-center mb-6 text-green-700">Browse by Category</h2>
-          <div className="flex justify-center gap-8 flex-wrap text-center">
-            {["Houses", "Flats", "New Builds", "Shared Ownership", "Luxury Homes", "Student Accommodation"].map((c) => (
-              <div key={c} className="bg-white px-6 py-4 rounded-lg shadow hover:shadow-md hover:bg-green-50 transition cursor-pointer border border-gray-200">
-                <p className="font-medium text-green-600">{c}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Popular Areas */}
-        <section className="px-6 py-12 bg-white flex flex-col items-center w-full">
-          <div className="max-w-5xl">
-            <h2 className="text-2xl font-bold text-center mb-6 text-gray-900">Popular UK Locations</h2>
-            <div className="flex justify-center gap-8 flex-wrap text-center">
-              {["London", "Manchester", "Birmingham", "Liverpool", "Leeds", "Bristol", "Sheffield", "Edinburgh"].map((city) => (
-                <Button key={city} className="h-14 w-50 bg-green-100! hover:bg-green-200! hover:shadow-md transition">
-                  {city}
-                </Button>
-              ))}
-            </div>
-          </div>
         </section>
       </main>
       <Footer />

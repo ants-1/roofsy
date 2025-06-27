@@ -5,45 +5,20 @@ const sql = postgres(process.env.POSTGRES_URL!, {
   ssl: "require",
 });
 
-// Fetch all properties with status "Sale"
-export async function fetchBuyProperties() {
+// Fetch all properties based on their status
+export async function fetchProperties(status: string) {
   try {
-    const data = await sql<
-      Property[]
-    >`SELECT * FROM properties WHERE property_status = 'Sale' OR property_status = 'sale'`;
+    const properties = await sql<Property[]>`
+      SELECT * FROM properties
+      WHERE 
+        property_status = ${status} OR
+        property_status = ${status.toLowerCase()}
+    `;
 
-    return data;
+    return properties;
   } catch (err) {
     console.error("Database Error:", err);
-    throw new Error("Failed to fetch buy properties data.");
-  }
-}
-
-// Fetch all properties with status "Rent"
-export async function fetchRentProperties() {
-  try {
-    const data = await sql<
-      Property[]
-    >`SELECT * FROM properties WHERE property_status = 'Rent' OR property_status = 'rent'`;
-
-    return data;
-  } catch (err) {
-    console.error("Database Error:", err);
-    throw new Error("Failed to fetch rent properties data.");
-  }
-}
-
-// Fetch all properties with status "Sold"
-export async function fetchSoldProperties() {
-  try {
-    const data = await sql<
-      Property[]
-    >`SELECT * FROM properties WHERE property_status = 'Sold'`;
-
-    return data;
-  } catch (err) {
-    console.error("Database Error:", err);
-    throw new Error("Failed to fetch sold properties data.");
+    throw new Error(`Failed to fetch ${status} properties data: ${err}`);
   }
 }
 
@@ -92,3 +67,5 @@ export async function fetchProperty(id: string): Promise<Property | null> {
     throw new Error("Failed to fetch property.");
   }
 }
+
+// Filtered Property list - Buy, Rent, Sold

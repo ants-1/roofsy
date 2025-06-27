@@ -2,13 +2,15 @@ import Image from "next/image";
 import Footer from "../ui/components/footer";
 import Navbar from "../ui/components/navbar";
 import SearchBar from "../ui/components/search";
-import { fetchSoldProperties } from "../lib/data";
+import { fetchProperties } from "../lib/data";
 import PropertyList from "../ui/property/property-list";
 import SellSection from "../ui/components/sell-section";
+import Link from "next/link";
+import { Button } from "../ui/components/button";
 
 export default async function SellPage() {
   const placeholder = ["Search sold homes", "Search by postcode"];
-  const properties = await fetchSoldProperties();
+  const properties = await fetchProperties('Sold');
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -24,6 +26,9 @@ export default async function SellPage() {
           <h1 className="text-gray-900 z-10 text-5xl font-bold mb-2">Sell</h1>
           <p className="text-gray-900 z-10 mb-5 text-lg">Find out prices of sold houses in your area</p>
           <SearchBar placeholder={placeholder} />
+          <Link href="/properties/create" className="flex items-center justify-center mt-4 z-10">
+            <Button>Sell Property</Button>
+          </Link>
         </div>
         <div className="bg-green-200">
           <SellSection />

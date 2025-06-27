@@ -1,8 +1,6 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { Button } from "./button";
-import Link from "next/link";
 
 export default function SellSection() {
   return (
@@ -24,9 +22,6 @@ export default function SellSection() {
         className="self-start sm:max-w-96 bg-green-50 p-6 rounded-xl shadow-sm border border-gray-200">
         <h3 className="text-xl font-semibold mb-2">Sell Smarter</h3>
         <p>List your home with ease and reach thousands of potential buyers with smart marketing tools.</p>
-        <Link href="/properties/create" className="flex items-center justify-center mt-4">
-          <Button>Sell Property</Button>
-        </Link>
       </motion.div>
     </div>
   )

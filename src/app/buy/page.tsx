@@ -4,13 +4,13 @@ import SearchBar from "../ui/components/search"
 import Footer from "../ui/components/footer"
 import DropdownMenu from "../ui/components/dropdown"
 import PropertyList from "../ui/property/property-list"
-import { fetchBuyProperties } from "../lib/data"
+import { fetchProperties } from "../lib/data"
 
 export default async function BuyPage() {
   const minBedOptions = ["No Min", "Studio", "1", "2", "3", "4", "5", "6", "7", "8+"];
   const maxPriceOptions = ["No Max", "£10,000", "£50,000", "£100,000", "£250,000", "£300,000", "£400,000", "£500,000", "£1,000,000", "£10,000,000"];
   const categoryOptions = ["No Location", "London", "Manchester", "Birmingham", "Liverpool", "Leeds", "Bristol", "Sheffield", "Edinburgh"];
-  const properties = await fetchBuyProperties();
+  const properties = await fetchProperties('Sale');
 
 
   return (
