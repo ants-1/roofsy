@@ -70,6 +70,7 @@ export const properties = [
     details: "A beautiful 3-bedroom detached house with a spacious garden.",
     property_address: "123 Green Lane",
     postcode: "SW1A 1AA",
+    city: "London",
     agent: users[0].name,
   },
   {
@@ -85,6 +86,7 @@ export const properties = [
     details: "Spacious 4-bedroom home in a quiet neighbourhood.",
     property_address: "456 Blue Street",
     postcode: "W1D 3QF",
+    city: "Manchester",
     agent: users[1].name,
   },
   {
@@ -100,6 +102,7 @@ export const properties = [
     details: "Charming terraced home with modern interiors.",
     property_address: "789 Red Road",
     postcode: "E14 5AB",
+    city: "Birmingham",
     agent: users[0].name,
   },
   {
@@ -115,6 +118,7 @@ export const properties = [
     details: "Luxury home with private driveway and garden.",
     property_address: "1010 Sunset Ave",
     postcode: "N1 1AA",
+    city: "Liverpool",
     agent: users[1].name,
   },
   {
@@ -130,6 +134,7 @@ export const properties = [
     details: "Modern flat close to public transport.",
     property_address: "88 River Street",
     postcode: "SE1 2LN",
+    city: "Leeds",
     agent: users[0].name,
   },
   {
@@ -145,6 +150,7 @@ export const properties = [
     details: "Lovely family home near schools.",
     property_address: "65 Oakwood Drive",
     postcode: "NW10 5LT",
+    city: "Bristol",
     agent: users[1].name,
   },
   {
@@ -160,6 +166,7 @@ export const properties = [
     details: "Grand house with large plot and garage.",
     property_address: "33 Hillside Way",
     postcode: "KT1 3DJ",
+    city: "Sheffield",
     agent: users[0].name,
   },
   {
@@ -175,6 +182,7 @@ export const properties = [
     details: "Compact city studio apartment.",
     property_address: "5 Central Plaza",
     postcode: "EC2M 4AA",
+    city: "Edinburgh",
     agent: users[1].name,
   },
   {
@@ -190,6 +198,7 @@ export const properties = [
     details: "Bright and spacious flat with balcony.",
     property_address: "99 Ocean View",
     postcode: "BN1 4GH",
+    city: "London",
     agent: users[0].name,
   },
   {
@@ -205,6 +214,7 @@ export const properties = [
     details: "Well-maintained home with driveway and garden.",
     property_address: "21 Lavender Close",
     postcode: "BR3 1YY",
+    city: "London",
     agent: users[1].name,
   },
   {
@@ -220,6 +230,7 @@ export const properties = [
     details: "Stylish renovated terraced house.",
     property_address: "7 Maple Way",
     postcode: "CR0 2DT",
+    city: "Manchester",
     agent: users[0].name,
   },
   {
@@ -235,6 +246,7 @@ export const properties = [
     details: "Contemporary detached house in premium location.",
     property_address: "4 Elm Street",
     postcode: "HA1 1AA",
+    city: "London",
     agent: users[1].name,
   },
 ];

@@ -87,15 +87,13 @@ export default function PropertyCard({ property }: PropertyCardProps) {
               <button
                 onClick={handleToggle}
                 disabled={isPending}
-                className={`cursor-pointer p-2 rounded-full transition ${
-                  isSaved ? "text-red-400" : "text-black hover:text-red-400"
-                } hover:bg-gray-100`}
+                className={`cursor-pointer p-2 rounded-full transition ${isSaved ? "text-red-400" : "text-black hover:text-red-400"
+                  } hover:bg-gray-100`}
                 title={isSaved ? "Unsave Property" : "Save Property"}
               >
                 <Heart
-                  className={`w-5 h-5 transition-all duration-200 ${
-                    isSaved ? "fill-red-400 hover:fill-none" : "fill-none"
-                  }`}
+                  className={`w-5 h-5 transition-all duration-200 ${isSaved ? "fill-red-400 hover:fill-none" : "fill-none"
+                    }`}
                 />
               </button>
             )}
@@ -104,7 +102,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
 
         <p className="text-gray-700">{property.details}</p>
         <p className="text-sm text-gray-600">
-          <strong>Address:</strong> {property.property_address},{" "}
+          <strong>Address:</strong>{" "}{property.city} ,{" "}{property.property_address},{" "}
           {property.postcode}
         </p>
         <p className="text-sm text-gray-600">

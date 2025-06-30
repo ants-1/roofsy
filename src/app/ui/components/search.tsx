@@ -2,25 +2,33 @@
 
 import { Search } from "lucide-react";
 import { TypeAnimation } from 'react-type-animation';
-import { useState } from "react";
 
 interface SearchBarProps {
+  query: string;
+  setQuery: (val: string) => void; 
   placeholder?: string[];
+  onSearch?: () => void;
 }
 
 export default function SearchBar({
+  query,
+  setQuery,
   placeholder = [
     "Search London homes...",
     "Search by postcode...",
     "Search by price or beds...",
     "Search buy or rent..."
   ],
+  onSearch
 }: SearchBarProps) {
-  const [query, setQuery] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Search submitted with filter:", query);
+    if (onSearch) {
+      onSearch();
+    } else {
+      console.log("Search submitted with filter:", query);
+    } 
   };
 
   const animationSequence: (string | number)[] = placeholder.flatMap((text) => [text, 2000]);

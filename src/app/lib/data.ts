@@ -12,7 +12,7 @@ export async function fetchProperties(status: string) {
       SELECT * FROM properties
       WHERE 
         property_status = ${status} OR
-        property_status = ${status.toLowerCase()}
+        property_status = LOWER(${status})
     `;
 
     return properties;
@@ -68,4 +68,63 @@ export async function fetchProperty(id: string): Promise<Property | null> {
   }
 }
 
-// Filtered Property list - Buy, Rent, Sold
+// Filtered property list - Buy, Rent
+export async function fetchFilteredProperties({
+  status,
+  query,
+  minBeds,
+  maxPrice,
+  category,
+}: {
+  status: string;
+  query: string;
+  minBeds: string;
+  maxPrice: string;
+  category: string;
+}): Promise<Property[]> {
+  try {
+    let where = sql`WHERE true`;
+
+    where = sql`${where} AND (property_status = ${status} OR property_status = LOWER(${status}))`;
+
+    where = sql`${where} AND (
+      details ILIKE ${`%${query}%`} OR
+      property_type ILIKE ${`%${query}%`} OR
+      property_address ILIKE ${`%${query}%`} OR
+      postcode ILIKE ${`%${query}%`} OR
+      agent ILIKE ${`%${query}%`} OR
+      city ILIKE ${`%${query}%`} 
+    )`;
+
+    if (minBeds && minBeds !== "No Min" && minBeds !== "Studio") {
+      const numBeds = parseInt(minBeds);
+      if (!isNaN(numBeds)) {
+        where = sql`${where} AND beds = ${numBeds}`;
+      }
+    } else if (minBeds === "Studio") {
+      where = sql`${where} AND beds = 0`;
+    }
+
+    if (maxPrice && maxPrice !== "No Max") {
+      const numPrice = parseInt(maxPrice.replace(/[^0-9]/g, ""));
+      if (!isNaN(numPrice)) {
+        where = sql`${where} AND price <= ${numPrice}`;
+      }
+    }
+
+    if (category && category !== "No Location") {
+      where = sql`${where} AND city ILIKE ${`%${category}%`}`;
+    }
+
+    const properties = await sql<Property[]>`
+      SELECT * FROM properties
+      ${where}
+      ORDER BY created_at ASC
+    `;
+
+    return properties;
+  } catch (err) {
+    console.error("Database Error:", err);
+    throw new Error("Failed to fetch filtered properties.");
+  }
+}

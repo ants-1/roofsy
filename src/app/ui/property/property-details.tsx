@@ -54,7 +54,8 @@ export default function PropertyDetail({ property }: PropertyDetailProps) {
       </div>
 
       <p className="mb-4"><strong>Price:</strong> £{property.price.toLocaleString()}</p>
-      <p className="mb-2"><strong>Address:</strong> {property.property_address}, {property.postcode}</p>
+      <p className="mb-2"><strong>Address:</strong>{" "}{property.city} ,{" "}{property.property_address},{" "}
+        {property.postcode}</p>
       <p className="mb-2"><strong>Agent:</strong> {property.agent}</p>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">

@@ -11,6 +11,7 @@ export interface Property {
   details: string;
   property_address: string;
   postcode: string;
+  city: string;
   agent: string;
   created_at?: Date;
 }

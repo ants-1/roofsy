@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { CircleUserRound, Heart, UserRound } from "lucide-react";
+import { CircleUserRound, Heart, LogOut, User, UserRound } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import { useState, useEffect, useRef } from "react";
 
@@ -90,9 +90,10 @@ export const NavLinks = () => {
               <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-md z-10">
                 <Link
                   href="/profile"
-                  className="block px-4 py-2 text-sm hover:bg-gray-100"
+                  className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex gap-1 items-center"
                   onClick={() => setDropdownOpen(false)}
                 >
+                 <User width={15} /> 
                   Profile
                 </Link>
                 <button
@@ -100,8 +101,9 @@ export const NavLinks = () => {
                     setDropdownOpen(false);
                     signOut({ callbackUrl: "/" });
                   }}
-                  className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100"
+                  className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex gap-1 items-center"
                 >
+                  <LogOut width={15} />
                   Sign out
                 </button>
               </div>

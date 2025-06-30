@@ -1,11 +1,25 @@
 'use client';
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Navbar from "./ui/components/navbar";
 import Footer from "./ui/components/footer";
 import SearchBar from "./ui/components/search";
 import { motion } from "framer-motion";
-import Image from "next/image"
+import Image from "next/image";
+import ToggleSwitch from "./ui/components/toggle-switch";
 
 export default function Home() {
+  const [query, setQuery] = useState("");
+  const [mode, setMode] = useState<"buy" | "rent">("buy");
+  const router = useRouter();
+
+  const handleSearch = () => {
+    const path = mode === "buy" ? "/buy" : "/rent";
+    const url = `${path}?query=${encodeURIComponent(query)}`;
+    router.push(url);
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -17,8 +31,23 @@ export default function Home() {
             fill
             className="object-cover opacity-50"
           />
-          <h1 className="text-gray-900 z-10 text-5xl font-bold mb-5">Home</h1>
-          <SearchBar />
+          <h1 className="text-gray-900 z-10 text-5xl font-bold mb-5">Find Your Dream Home</h1>
+          
+          <div className="z-10 w-full max-w-md mb-2">
+            <SearchBar
+              query={query}
+              setQuery={setQuery}
+              placeholder={[
+                "Search by city, postcode...",
+                "Search London homes...",
+                "Search by price or beds..."
+              ]}
+              onSearch={handleSearch}
+            />
+          </div>
+
+          {/* Toggle Buy/Rent */}
+          <ToggleSwitch value={mode} onChange={setMode} />
         </div>
 
         {/* Roofsy Info Section */}

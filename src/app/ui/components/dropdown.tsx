@@ -4,17 +4,18 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
 interface DropdownMenuProps {
-  options: Array<string>;
+  options: string[];
+  selected: string;
+  onSelect: (option: string) => void;
 }
 
-export default function DropdownMenu({ options }: DropdownMenuProps) {
+export default function DropdownMenu({ options, selected, onSelect }: DropdownMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(options[0]);
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   const handleSelect = (option: string) => {
-    setSelected(option);
+    onSelect(option);
     setIsOpen(false);
   }
 
