@@ -51,7 +51,7 @@ export default function Home() {
         </div>
 
         {/* Roofsy Info Section */}
-        <section className="px-6 py-12 bg-white">
+        <section className="px-6 py-12 mb-18 bg-white">
           <h2 className="text-3xl font-bold text-center mb-6 text-green-600">Why Roofsy?</h2>
           <motion.div
             initial={{ opacity: 0, y: 30 }}

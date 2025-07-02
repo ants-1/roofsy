@@ -36,13 +36,15 @@ export default function PropertyCard({ property }: PropertyCardProps) {
 
   useEffect(() => {
     async function checkSaved() {
-      const res = await fetch("/api/is-saved", {
-        method: "POST",
-        body: JSON.stringify({ userId, propertyId: property.id }),
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await res.json();
-      setIsSaved(data.saved);
+      if (session) {
+        const res = await fetch("/api/is-saved", {
+          method: "POST",
+          body: JSON.stringify({ userId, propertyId: property.id }),
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await res.json();
+        setIsSaved(data.saved);
+      }
     }
 
     checkSaved();
@@ -81,22 +83,25 @@ export default function PropertyCard({ property }: PropertyCardProps) {
             £{property.price.toLocaleString()}
           </h2>
           <div className="flex items-center">
-            {userId === property.owner_id ? (
-              <PropertyDropdownMenu propertyId={property.id} />
-            ) : (
-              <button
-                onClick={handleToggle}
-                disabled={isPending}
-                className={`cursor-pointer p-2 rounded-full transition ${isSaved ? "text-red-400" : "text-black hover:text-red-400"
-                  } hover:bg-gray-100`}
-                title={isSaved ? "Unsave Property" : "Save Property"}
-              >
-                <Heart
-                  className={`w-5 h-5 transition-all duration-200 ${isSaved ? "fill-red-400 hover:fill-none" : "fill-none"
-                    }`}
-                />
-              </button>
+            {session && (
+              userId === property.owner_id ? (
+                <PropertyDropdownMenu propertyId={property.id} />
+              ) : (
+                <button
+                  onClick={handleToggle}
+                  disabled={isPending}
+                  className={`cursor-pointer p-2 rounded-full transition ${isSaved ? "text-red-400" : "text-black hover:text-red-400"
+                    } hover:bg-gray-100`}
+                  title={isSaved ? "Unsave Property" : "Save Property"}
+                >
+                  <Heart
+                    className={`w-5 h-5 transition-all duration-200 ${isSaved ? "fill-red-400 hover:fill-none" : "fill-none"
+                      }`}
+                  />
+                </button>
+              )
             )}
+
           </div>
         </div>
 

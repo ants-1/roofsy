@@ -54,16 +54,18 @@ export const NavLinks = () => {
       </div>
 
       <div className="flex gap-2 items-center relative" ref={dropdownRef}>
-        <Link
-          href="/saved"
-          className={clsx(
-            "hover:underline hover:text-green-600 transition-all flex flex-col items-center justify-center",
-            pathname === "/saved" && "underline text-green-700 font-semibold"
-          )}
-        >
-          <Heart className="w-12" />
-          <p className="text-sm">Saved</p>
-        </Link>
+        {isUser && (
+          <Link
+            href="/saved"
+            className={clsx(
+              "hover:underline hover:text-green-600 transition-all flex flex-col items-center justify-center",
+              pathname === "/saved" && "underline text-green-700 font-semibold"
+            )}
+          >
+            <Heart className="w-12" />
+            <p className="text-sm">Saved</p>
+          </Link>
+        )}
 
         {!isUser ? (
           <Link
@@ -93,7 +95,7 @@ export const NavLinks = () => {
                   className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex gap-1 items-center"
                   onClick={() => setDropdownOpen(false)}
                 >
-                 <User width={15} /> 
+                  <User width={15} />
                   Profile
                 </Link>
                 <button

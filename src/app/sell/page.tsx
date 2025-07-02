@@ -4,8 +4,10 @@ import Navbar from "../ui/components/navbar";
 import SellSection from "../ui/components/sell-section";
 import Link from "next/link";
 import { Button } from "../ui/components/button";
+import { auth } from "../../../auth";
 
 export default async function SellPage() {
+  const session = await auth();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -20,9 +22,15 @@ export default async function SellPage() {
           />
           <h1 className="text-gray-900 z-10 text-5xl font-bold mb-2">Sell</h1>
           <p className="text-gray-900 z-10 mb-5 text-lg">Create a property listing to sell or rent</p>
-          <Link href="/properties/create" className="flex items-center justify-center mt-2 z-10">
-            <Button>Create Property</Button>
-          </Link>
+          {session ? (
+            <Link href="/properties/create" className="flex items-center justify-center mt-2 z-10">
+              <Button>Create Property</Button>
+            </Link>
+          ) : (
+            <Link href="/login" className="flex items-center justify-center mt-2 z-10">
+              <Button>Login to Create Property</Button>
+            </Link>
+          )}
         </div>
         <div className="bg-green-200">
           <SellSection />

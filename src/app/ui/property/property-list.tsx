@@ -33,13 +33,13 @@ export default function PropertyList({ properties }: PropertyListProps) {
             <PropertyCard key={idx} property={property} />
           ))
         ) : (
-          <p className="text-gray-500">No properties match the selected filters.</p>
+          <p className="text-gray-500">No properties avaliable.</p>
         )}
 
         {visibleCount < properties.length && (
           <button
             onClick={handleLoadMore}
-            className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+            className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer"
           >
             Load More
           </button>
