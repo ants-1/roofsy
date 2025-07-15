@@ -7,10 +7,16 @@ const authConfig = {
   pages: {
     signIn: "/login",
   },
+  session: {
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60,
+  },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
+        token.accessToken = account?.access_token;
+        token.accessTokenExpires = Date.now() + 24 * 60 * 60 * 1000;
       }
       return token;
     },

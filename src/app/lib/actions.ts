@@ -15,7 +15,12 @@ export async function authenticate(
   formData: FormData
 ) {
   try {
-    await signIn("credentials", formData);
+    await signIn("credentials", {
+      email: formData.get("email"),
+      password: formData.get("password"),
+      redirect: true,
+      redirectTo: "/",
+    });
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -37,7 +42,6 @@ export async function signUp(
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
   const confirmPassword = formData.get("confirmPassword")?.toString();
-  const redirectTo = formData.get("redirectTo")?.toString() || "/";
 
   if (!name || !email || !password || !confirmPassword) {
     return "All fields are required";
@@ -63,7 +67,7 @@ export async function signUp(
     email,
     password,
     redirect: true,
-    redirectTo,
+    redirectTo: "/",
   });
 
   return;
