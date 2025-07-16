@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { CircleUserRound, Heart, LogOut, User, UserRound } from "lucide-react";
-import { useSession, signOut } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
+import type { Session } from "next-auth";
 import { useState, useEffect, useRef } from "react";
 
 const links = [
@@ -15,13 +16,18 @@ const links = [
 
 export const NavLinks = () => {
   const pathname = usePathname();
-  const { data: session } = useSession();
-  const isUser = !!session;
-
+  const [session, setSession] = useState<Session | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown on outside click
+  useEffect(() => {
+    const loadSession = async () => {
+      const session = await getSession();
+      setSession(session);
+    };
+    loadSession();
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -31,6 +37,8 @@ export const NavLinks = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+   const isUser = !!session;
 
   return (
     <div className="flex items-center justify-between w-full">
